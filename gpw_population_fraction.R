@@ -43,8 +43,8 @@ night.25.99 <- pop_frac_25.99*night
 night.popfrac.65.99 <- pop_frac_65.99*night
 
 #write out conus
-writeRaster(night.25.99, filename='ls.night.25.99', format="GTiff", overwrite=TRUE)
-writeRaster(night.popfrac.65.99, filename='ls.night.65.99', format="GTiff", overwrite=TRUE)
+writeRaster(night.25.99, filename='ls.night.25.99.tif', format="GTiff", overwrite=TRUE)
+writeRaster(night.popfrac.65.99, filename='ls.night.65.99.tif', format="GTiff", overwrite=TRUE)
 
 #===================================================================================
 # Pediatric
@@ -70,4 +70,4 @@ pop_frac_0.17 <- x0.17 / pop_tot
 night.popfrac.0.17 <- pop_frac_0.17*night
 
 #write out conus
-writeRaster(night.popfrac.0.17, filename='ls.night.17', format="GTiff", overwrite=TRUE)
+writeRaster(night.popfrac.0.17, filename='ls.night.17.tif', format="GTiff", overwrite=TRUE)

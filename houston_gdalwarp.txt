@@ -1,8 +1,6 @@
 module load gdal/gcc/2.2.0
 module load proj.4
 
-
-
 #Format is: gdalwarp -te xmin xmax ymin ymax -ts ncol nrow -dstnodata (whatever your symbol for no data is, if applicable) -overwrite (name of input file) (name of outpur file)
 
 cd C:\Users\vtinney\Google Drive\EDF_Texas\pop
@@ -10,8 +8,9 @@ gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -srcnodata 
 
 cd C:\Users\vtinney\Google Drive\EDF_Texas\conc1
 
-gdalwarp -t_srs "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" -te -96.622500 28.825000 -94.353333 30.630833 -ts 2167 2723 -dstnodata -9999 -overwrite Global_LUR_NO2_2011_16b_2.tif no2.clip.houston.tif
-gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite mean.15.16.ho.di.tif mean.15.16.di.warp.houston.tif
+gdalwarp -t_srs "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" -te -96.622500 28.825000 -94.353333 30.630833 -ts 2167 2723 -dstnodata -9999 -overwrite lark_clip_houston.tif conc.lark.ho.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite mean.15.16.ho.di.tif conc.mean.15.16.ho.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite vanDonkelaar_bc_2016.tif conc.bc.ho.tif
 
 cd C:\Users\vtinney\Google Drive\EDF_Texas\pop
 
