@@ -1,0 +1,39 @@
+module load gdal/gcc/2.2.0
+module load proj.4
+
+
+
+#Format is: gdalwarp -te xmin xmax ymin ymax -ts ncol nrow -dstnodata (whatever your symbol for no data is, if applicable) -overwrite (name of input file) (name of outpur file)
+
+cd C:\Users\vtinney\Google Drive\EDF_Texas\pop
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -srcnodata 2147483647 -dstnodata -9999 -overwrite conus_night1.tif night_houston.tif
+
+cd C:\Users\vtinney\Google Drive\EDF_Texas\conc1
+
+gdalwarp -t_srs "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" -te -96.622500 28.825000 -94.353333 30.630833 -ts 2167 2723 -dstnodata -9999 -overwrite Global_LUR_NO2_2011_16b_2.tif no2.clip.houston.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite mean.15.16.ho.di.tif mean.15.16.di.warp.houston.tif
+
+cd C:\Users\vtinney\Google Drive\EDF_Texas\pop
+
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a000_004bt_2010_cntm_30_sec.tif crop.0.4.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a005_009bt_2010_cntm_30_sec.tif crop.5.9.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a010_014bt_2010_cntm_30_sec.tif crop.10.14.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a015_019bt_2010_cntm_30_sec.tif crop.15.19.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a020_024bt_2010_cntm_30_sec.tif crop.20.24.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a025_029bt_2010_cntm_30_sec.tif crop.25.29.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a030_034bt_2010_cntm_30_sec.tif crop.30.34.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a035_039bt_2010_cntm_30_sec.tif crop.35.39.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a040_044bt_2010_cntm_30_sec.tif crop.40.44.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a045_049bt_2010_cntm_30_sec.tif crop.45.49.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a050_054bt_2010_cntm_30_sec.tif crop.50.54.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a055_059bt_2010_cntm_30_sec.tif crop.55.59.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a060_064bt_2010_cntm_30_sec.tif crop.60.64.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a065_069bt_2010_cntm_30_sec.tif crop.65.69.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a070_074bt_2010_cntm_30_sec.tif crop.70.74.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a075_079bt_2010_cntm_30_sec.tif crop.75.79.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a080_084bt_2010_cntm_30_sec.tif crop.80.84.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a065plusbt_2010_cntm_30_sec.tif crop.65.99.tif
+
+
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_cntm_30_sec.tif total.pop.ho.tif
+
