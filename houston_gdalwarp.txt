@@ -15,6 +15,8 @@ gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata 
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite di.pm.mean.13.16.tif conc.pm.mean.13.16.tif
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite di.pm.mean.14.16.tif conc.pm.mean.14.16.tif
 
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite vd.pm.2016.tif conc.vd.pm.2016.tif
+
 cd C:\Users\vtinney\Google Drive\EDF_Texas\pop
 
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a000_004bt_2010_cntm_30_sec.tif crop.0.4.tif
@@ -36,6 +38,13 @@ gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata 
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a080_084bt_2010_cntm_30_sec.tif crop.80.84.tif
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite gpw_v4_basic_demographic_characteristics_rev11_a065plusbt_2010_cntm_30_sec.tif crop.65.99.tif
 
-
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_cntm_30_sec.tif total.pop.ho.tif
 
+
+
+cd C:\Users\vtinney\Google Drive\EDF_Texas\rates
+
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite ho.co.all.25.tif co.25.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite ho.co.all.65.tif co.65.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite ho.co.cvd.25.tif cvd.co.25.tif
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite ho.co.cvd.25.tif cvd.co.65.tif
