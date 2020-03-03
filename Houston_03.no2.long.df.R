@@ -4,7 +4,7 @@
 # 2) create a long DF (estimates spread across columns per result)
 # for both full results and CBG results for BC
 
-# Date: 2019-11-20
+# Date: 2020-03-03
 # Author: V Southerland
 
 #/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@ library(tidyverse)
 library(readxl)
 
 
-setwd("/GWSPH/home/vtinney/ho/results3/no2/df/final/")
+setwd("/GWSPH/home/vtinney/ho/results3/no2/df/Final/")
 
 
 # list.files()
@@ -35,22 +35,21 @@ full <- cSplit(full0, 90:ncol(full0), sep=",", stripWhite=TRUE, type.convert=FAL
 
 
 # Keep these column names
-#p.sum_01 #19
-#p.mean_01 #28
-#X0._01 #37
-#X25._01 #46
-#X50._01 #55
-#X75._01 #64
-#X100._01 #73
-#[82] "dataset.names_1"    "dataset.names_2"    "dataset.names_3"
-#[85] "dataset.names_4"    "dataset.names_5"    "dataset.names_6"
-#[88] "dataset.names_7"    "dataset.names_8"    "dataset.names_9_01"
-#[91] "dataset.names_9_02" "dataset.names_9_03" "dataset.names_9_04"
-#[94] "dataset.names_9_05" "dataset.names_9_06" "dataset.names_9_07"
-#[97] "dataset.names_9_08" "dataset.names_9_09"
+#p.sum_01 #21
+#p.mean_01 #31
+#X0._01 #41
+#X25._01 #51
+#X50._01 #61
+#X75._01 #71
+#X100._01 #81
+
+# [178] "dataset.names_09_8" "dataset.names_09_9" "dataset.names_10_1" <- start here
+# [181] "dataset.names_10_2" "dataset.names_10_3" "dataset.names_10_4"
+# [184] "dataset.names_10_5" "dataset.names_10_6" "dataset.names_10_7"
+# [187] "dataset.names_10_8" "dataset.names_10_9"
 
 
-full2 <- full[,c(19,28,37,46,55,64,73,90:98)]
+full2 <- full[,c(21,31,41,51,61,71,81,180:188)]
 
 # Rename
 names(full2) <- c('sum','mean','min','q25','median','q75','max','Extent','Outcome','Concentrations','CRF','Estimates','Age groups',
@@ -99,25 +98,16 @@ comb <- full2
 # Associate each area of analysis with a total population
 
 
-comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'Alameda County'] <- 377886.9
-comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'Alameda County'] <- 1090503
-comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'Alameda County'] <- 183904.1
-comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'Alameda County'] <- 1663085
+#comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'Alameda County'] <- 377886.9
+comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'GSV drives'] <- 62872
+comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'GSV drives'] <- 19262
+#comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'Alameda County'] <- 1663085
 
-comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'Bay area'] <- 1721994
-comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'Bay area'] <- 5166662
-comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'Bay area'] <- 947944.7
-comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'Bay area'] <- 7755519
+#comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'Bay area'] <- 1721994
+comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'Houston area'] <- 4246967
+comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'Houston area'] <- 581817
+#comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'Bay area'] <- 7755519
 
-comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'Oakland'] <- 28152.86
-comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'Oakland'] <- 78936.75
-comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'Oakland'] <- 13140.52
-comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'Oakland'] <- 122246
-
-comb$pop.total[comb$'Age groups' == "ages 0-17 years" & comb$Extent == 'West and Downtown Oakland'] <- 9308.006
-comb$pop.total[comb$'Age groups' == "ages 25-99 years" & comb$Extent == 'West and Downtown Oakland'] <- 42323.16
-comb$pop.total[comb$'Age groups' == "ages 65-99 years" & comb$Extent == 'West and Downtown Oakland'] <- 7981.142
-comb$pop.total[comb$'Age groups' == "all ages" & comb$Extent == 'West and Downtown Oakland'] <- 58906
 
 #/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +122,7 @@ long_DF <- comb %>% gather(Anal, Val, "sum":"rate.100")
 
 # Spread by confidence intervals
 x2 <- long_DF %>% spread(Estimates, Val)
-x2 <- x2[,c(1:11,16:18)]
+#x2 <- x2[,c(1:11,16:18)]
 long_DF2 <- x2[complete.cases(x2), ]
 
 # Create a rounded version for tables
@@ -158,17 +148,17 @@ cbg <- read.csv("no2.cbg.results.csv")
 #Keep these columns
 # COUNTYFP.x - 12
 # TRACTCE.x - 13
-# GEOID.x - 15
-# GEOID_Data.x - 25
-# hia.val - 27
-# pop.val - 50
-# rate - 51
-# filenames - 52
+# GEOID.x - 16
+# hia.val - 24
+# pop.val - 44
+# rate - 45
+# filenames - 46
 
-cbg <- cbg[,c(12,13,15,25,27,50,51,52)]
+cbg <- cbg[,c(12,13,16,24,44,45,45,46)]
 cbg2 <- cSplit(cbg, 8:ncol(cbg), sep=",", stripWhite=TRUE, type.convert=FALSE)
+cbg2[cbg2, c(1:6,8:16)]
 
-names(cbg2) <- c('County','Tract','GEOID','GEOID_Full','Cases','Population','Rate per 100,000','Extent',
+names(cbg2) <- c('County','Tract','GEOID','Cases','Population','Rate per 100,000','Rate per 100,000','Extent',
                  'Outcome','CRF','Estimates','Concentrations','Population dataset','Population fraction',
                  'Age groups','Baseline disease rates')
 
@@ -178,16 +168,14 @@ cbg2$'Baseline disease rates'[cbg2$'Baseline disease rates' == 'County baseline 
 cbg2$'Baseline disease rates'[cbg2$'Baseline disease rates' == 'Zip-code rates cbg.results.csv'] <- 'Zip-code baseline disease rates'
 cbg2$'Baseline disease rates'[cbg2$'Baseline disease rates' == 'State of California disease rate cbg.results.csv'] <- 'State of California disease rate'
 
-cbg2$Extent[cbg2$Extent == './Oakland'] <- 'Oakland'
-cbg2$Extent[cbg2$Extent == './West and Downtown Oakland'] <- 'West and Downtown Oakland'
-cbg2$Extent[cbg2$Extent == './Bay area'] <- 'Bay area'
-cbg2$Extent[cbg2$Extent == './Alameda County'] <- 'Alameda County'
+cbg2$Extent[cbg2$Extent == './Houston area'] <- 'Houston area'
 
 # Spread to Long DF
 
-cbg <- cbg2[,c(1:4,8:10,12:16,11,5:7)]
+cbg <- cbg2[,c(1:4,8:10,12:16,11,4:7)]
+cbg3 <- cbg[,c(1:3,5:16)]
 
-long_DF <- cbg %>% gather(Analysis, Val, "Cases":"Rate per 100,000")
+long_DF <- cbg3 %>% gather(Analysis, Val, "Cases":"Rate per 100,000")
 x4 <- long_DF %>% spread(Estimates, Val)
 x4 <- x4[complete.cases(x4), ]
 x4$point.t <- round(x4$"point estimate",0)
