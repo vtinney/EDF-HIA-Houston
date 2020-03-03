@@ -1,6 +1,6 @@
 # Combined all run files 
 # ==========================================================================================================================================
-# Created: 2019-11-5
+# Created: 2020-02-02
 #
 # All read-in files are rasters with the following characteristics: 
 # 2367, 2909, 6885603  (nrow, ncol, ncell)
@@ -36,13 +36,6 @@ rates <- '/GWSPH/home/vtinney/ho/rates1/'
 concs <- '/GWSPH/home/vtinney/ho/conc1/'
 poptotal <- '/GWSPH/home/vtinney/ho/pop1/'
 shps <- '/GWSPH/home/vtinney/ho/clip1/'
-
-#bay.ext <- 'Extent: -121.208, -123.533, 36.893, 38.864'
-#ala.ext <- 'Extent: -122.342, -121.469, 37.454, 37.906'
-#oak.ext <- 'Extent: -122.328, -122.148, 37.716, 37.832'
-#wo.ext <- 'Extent: -122.328, -122.253, 37.791, 37.832'
-
-#ext <- c(bay.ext, ala.ext, oak.ext, wo.ext)
 
 cbg.groups <- c('cbg_houston')
 city.groups <- c('houston_cities')
@@ -117,129 +110,118 @@ ZonalPipe<- function (zone.in, raster.in, shp.out=NULL, stat){
 # All health outcomes and NO2
 # ==================================================================
 
-beta.groups <- c(0.022931377,0.009307235,0.031799565, #asthma incidence
-                 0.003907117,0.001124629,0.006649023, #all cause
-                 0.003907117,0.001124629,0.006649023, #all cause
+
+
+# beta.groups <- c(0.022931377,0.009307235,0.031799565, #asthma incidence
+#                  0.003907117,0.001124629,0.006649023, #all cause
+#                  0.003907117,0.001124629,0.006649023, #all cause
+#                  0.005557055,0.003722894,0.009172551, #cvd
+#                  0.005557055,0.003722894,0.009172551, #cvd
+#                  0.00242825,0.001498016,0.003353905, #asthma er
+#                  0.002371653,0.000498754,0.004210118, #asthma er
+#                  0.003353905,0.00242825,0.004275024, #asthma er
+#                  0.003922071,9.995E-05,0.007788654, #asthma er
+#                  0.00227394869694893,0.00207825391825284,0.00256677467485778, #all cause
+#                  0.00227394869694893,0.00207825391825284,0.00256677467485778, #all cause
+#                  0.00980337402713654,0.00944006754214843,0.0102556588325092, #cvd
+#                  0.00980337402713654,0.00944006754214843,0.0102556588325092) #cvd
+# names(beta.groups) <- c('Khreis et al. 2017, point estimate', # 1
+#                         'Khreis et al. 2017, lower CI',
+#                         'Khreis et al. 2017, upper CI',
+#                         'Atkinson & Butland 2018, point estimate', # 4
+#                         'Atkinson & Butland 2018, lower CI',
+#                         'Atkinson & Butland 2018, upper CI',
+#                         'Atkinson & Butland 2018, point estimate', #7
+#                         'Atkinson & Butland 2018, lower CI',
+#                         'Atkinson & Butland 2018, upper CI',
+#                         'Atkinson et al. 2018, point estimate', #10
+#                         'Atkinson et al. 2018, lower CI',
+#                         'Atkinson et al. 2018, upper CI',
+#                         'Atkinson et al. 2018, point estimate', #13
+#                         'Atkinson et al. 2018, lower CI',
+#                         'Atkinson et al. 2018, upper CI',
+#                         'Zheng et al. 2015, point estimate', #16
+#                         'Zheng et al. 2015, lower CI',
+#                         'Zheng et al. 2015, upper CI',
+#                         'Orellano et al. 2017, point estimate', #19
+#                         'Orellano et al. 2017, lower CI',
+#                         'Orellano et al. 2017, upper CI',
+#                         'Zheng et al. 2015, point estimate', #22
+#                         'Zheng et al. 2015, lower CI',
+#                         'Zheng et al. 2015, upper CI',
+#                         'Orellano et al. 2017, point estimate', #25
+#                         'Orellano et al. 2017, lower CI',
+#                         'Orellano et al. 2017, upper CI',
+#                         'Eum et al. 2019, point estimate', #28
+#                         'Eum et al. 2019, lower CI',
+#                         'Eum et al. 2019, upper CI',
+#                         'Eum et al. 2019, point estimate', #31
+#                         'Eum et al. 2019, lower CI',
+#                         'Eum et al. 2019, upper CI',
+#                         'Eum et al. 2019, point estimate', #33
+#                         'Eum et al. 2019, lower CI',
+#                         'Eum et al. 2019, upper CI',
+#                         'Eum et al. 2019, point estimate', #36
+#                         'Eum et al. 2019, lower CI',
+#                         'Eum et al. 2019, upper CI')
+
+
+beta.groups <- c(0.003907117,0.001124629,0.006649023, #all cause
                  0.005557055,0.003722894,0.009172551, #cvd
-                 0.005557055,0.003722894,0.009172551, #cvd
-                 0.00242825,0.001498016,0.003353905, #asthma er
-                 0.002371653,0.000498754,0.004210118, #asthma er
-                 0.003353905,0.00242825,0.004275024, #asthma er
-                 0.003922071,9.995E-05,0.007788654, #asthma er
                  0.00227394869694893,0.00207825391825284,0.00256677467485778, #all cause
-                 0.00227394869694893,0.00207825391825284,0.00256677467485778, #all cause
-                 0.00980337402713654,0.00944006754214843,0.0102556588325092, #cvd
                  0.00980337402713654,0.00944006754214843,0.0102556588325092) #cvd
-names(beta.groups) <- c('Khreis et al. 2017, point estimate', # 1
-                        'Khreis et al. 2017, lower CI',
-                        'Khreis et al. 2017, upper CI',
-                        'Atkinson & Butland 2018, point estimate', # 4
+
+
+names(beta.groups) <- c('Atkinson & Butland 2018, point estimate', # 1
                         'Atkinson & Butland 2018, lower CI',
                         'Atkinson & Butland 2018, upper CI',
-                        'Atkinson & Butland 2018, point estimate', #7
-                        'Atkinson & Butland 2018, lower CI',
-                        'Atkinson & Butland 2018, upper CI',
-                        'Atkinson et al. 2018, point estimate', #10
+                        'Atkinson et al. 2018, point estimate', #4
                         'Atkinson et al. 2018, lower CI',
                         'Atkinson et al. 2018, upper CI',
-                        'Atkinson et al. 2018, point estimate', #13
-                        'Atkinson et al. 2018, lower CI',
-                        'Atkinson et al. 2018, upper CI',
-                        'Zheng et al. 2015, point estimate', #16
-                        'Zheng et al. 2015, lower CI',
-                        'Zheng et al. 2015, upper CI',
-                        'Orellano et al. 2017, point estimate', #19
-                        'Orellano et al. 2017, lower CI',
-                        'Orellano et al. 2017, upper CI',
-                        'Zheng et al. 2015, point estimate', #22
-                        'Zheng et al. 2015, lower CI',
-                        'Zheng et al. 2015, upper CI',
-                        'Orellano et al. 2017, point estimate', #25
-                        'Orellano et al. 2017, lower CI',
-                        'Orellano et al. 2017, upper CI',
-                        'Eum et al. 2019, point estimate', #28
+                        'Eum et al. 2019, point estimate', #7
                         'Eum et al. 2019, lower CI',
                         'Eum et al. 2019, upper CI',
-                        'Eum et al. 2019, point estimate', #31
-                        'Eum et al. 2019, lower CI',
-                        'Eum et al. 2019, upper CI',
-                        'Eum et al. 2019, point estimate', #33
-                        'Eum et al. 2019, lower CI',
-                        'Eum et al. 2019, upper CI',
-                        'Eum et al. 2019, point estimate', #36
+                        'Eum et al. 2019, point estimate', #10
                         'Eum et al. 2019, lower CI',
                         'Eum et al. 2019, upper CI')
 
-outcome.groups <- c('Asthma incidence',
-                    'Asthma incidence',
-                    'Asthma incidence',
-                    'All-cause mortality',
-                    'All-cause mortality',
-                    'All-cause mortality',
-                    'All-cause mortality',
+outcome.groups <- c('All-cause mortality',
                     'All-cause mortality',
                     'All-cause mortality',
                     'CVD mortality',
                     'CVD mortality',
                     'CVD mortality',
-                    'CVD mortality',
-                    'CVD mortality',
-                    'CVD mortality',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
-                    'Asthma ER visits',
                     'All-cause mortality',
                     'All-cause mortality',
                     'All-cause mortality',
-                    'All-cause mortality',
-                    'All-cause mortality',
-                    'All-cause mortality',
-                    'CVD mortality',
-                    'CVD mortality',
-                    'CVD mortality',
                     'CVD mortality',
                     'CVD mortality',
                     'CVD mortality')
 
+rate.groups <- c('ho.all.25',
+                 'ho.cvd.25',
+                 'ho.all.65',
+                 'ho.cvd.65')
 
-# rate.groups <- c('asthma.inc',
-#                  'co.25',
-#                  'cbg.25',
-#                  'cvd.co.25',
-#                  'cvd.cbg.25',
-#                  'asthma.er.zip.all',
-#                  'asthma.er.zip.17',
-#                  'co.65',
-#                  'cbg.65',
-#                  'cvd.co.65',
-#                  'cvd.cbg.65')
-# names(rate.groups) <- c('ages 0-17 years, State of California disease rate',
-#                         'ages 25-99 years, County baseline disease rates',
-#                         'ages 25-99 years, CBG baseline disease rates',
-#                         'ages 25-99 years, County baseline disease rates',
-#                         'ages 25-99 years, CBG baseline disease rates',
-#                         'all ages, Zip-code rates',
-#                         'ages 0-17 years, Zip-code rates',
-#                         'ages 65-99 years, County baseline disease rates',
-#                         'ages 65-99 years, CBG baseline disease rates',
-#                         'ages 65-99 years, County baseline disease rates',
-#                         'ages 65-99 years, CBG baseline disease rates')
-conc.groups <- c('conc.lark.ho','conc.no2.gsv','conc.med.no2.ho', 'conc.med.gsv.ho','conc.min.no2.ho', 'conc.min.gsv.ho')
-names(conc.groups) <- c('Larkin et al. 2017','GSV','Median concentrations Larkin et al. 2017','Median concentrations GSV',
-                        'Minimum concentrations Larkin et al. 2017','Minimum concentrations GSV')
-pop.groups <- c('pop.ls.night.17','pop.ls.night.25','pop.ls.night','pop.ls.night.65')
+names(rate.groups) <- c('ages 25-99 years, County baseline disease rates',
+                        'ages 25-99 years, County baseline disease rates',
+                        'ages 65-99 years, County baseline disease rates',
+                        'ages 65-99 years, County baseline disease rates')
+
+
+conc.groups <- c("conc.lark.ho","conc.med.no2.ho","conc.min.no2.ho",
+                 "conc.no2.gsv.med","conc.no2.gsv.lower","conc.no2.gsv.upper",
+                 "conc.med.no2.gsv.med","conc.med.no2.gsv.lower","conc.med.no2.gsv.upper",
+                 "conc.min.no2.gsv.lower","conc.min.no2.gsv.med","conc.min.no2.gsv.upper")
+
+names(conc.groups) <- c('Larkin et al. 2017','Larkin et al. 2017 median concentrations','Larkin et al. 2017 minimum concentrations',
+                        'GSV','GSV lower CI','GSV upper CI',
+                        'GSV median concentrations','GSV median concentrations lower CI','GSV median concentrations upper CI',
+                        'GSV minimum concentrations lower CI','GSV minimum concentrations','GSV minimum concentrations upper CI')
+
+pop.groups <- c('pop.ls.night.25.ho','pop.ls.night.65.ho')
+
 names(pop.groups) <- c('LandScan USA, GPWv4 age fractions',
-                       'LandScan USA, GPWv4 age fractions',
-                       'LandScan USA',
                        'LandScan USA, GPWv4 age fractions')
 
 pdf(NULL)
@@ -251,32 +233,19 @@ for (i in 1:length(beta.groups)){
   for (j in 1:length(conc.groups)){
     print(conc.groups[j])
     
-    if((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 |
-        i == 10 | i == 11 | i == 12 | i == 13 | i == 14 | i == 15 | i == 16 | 
-        i == 17 | i == 18 | i == 19 | i == 20 | i == 21 | i == 22 | i == 23 | i == 24 | i == 25 | i == 26 | i == 27 |
-        i == 28 | i == 29 | i == 30 | i == 34 | i == 35 | i == 36) & (j == 1 | j == 3 | j == 5 )){
+    if((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 | i == 7 | i == 8 | i == 9 |
+        i == 10 | i == 11 | i == 12 ) & (j == 1 | j == 2 | j == 3 )){
       clip.groups <- c('houston_co_1984')
       names(clip.groups) <- c('Houston area')
     }
     
     
-    if((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 |
-        i == 10 | i == 11 | i == 12 | i == 13 | i == 14 | i == 15 | i == 16 | i == 17 | i == 18 | 
-        i == 19 | i == 20 | i == 21 | i == 22 | i == 23 | i == 24 | i == 25 | i == 26 | i == 27 |
-        i == 28 | i == 29 | i == 30 | i == 34 | i == 35 | i == 36) & (j == 2 | j == 4 | j == 6)){
-      clip.groups <- c('gsv_grid')
+    if((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 | i == 7 | i == 8 | i == 9 |
+        i == 10 | i == 11 | i == 12 )& (j == 4 | j == 5 | j == 6 | j == 7
+                                        | j == 8 | j == 9 | j == 10 | j == 11 | j == 12)){
+      clip.groups <- c('gsv_no2_100m_grid')
       names(clip.groups) <- c('GSV drives')
     }
-    
-    # if((i == 7 | i == 8 | i == 9 | i == 13 | i == 14 | i == 15 | i == 31 |i == 32 | i == 33 | i == 37 | i == 38 | i == 39) & (j == 1 | j == 3 | j == 4 | j == 6 | j == 8 | j == 9)){
-    #   clip.groups <- c('wo_outline','oak','alaco2')
-    #   names(clip.groups) <- c('West and Downtown Oakland','Oakland','Alameda County')
-    # }
-    # 
-    # if((i == 7 | i == 8 | i == 9 | i == 13 | i == 14 | i == 15 | i == 31 | i == 32 | i == 33 | i == 37 | i == 38 | i == 39) & (j == 2 | j == 5 | j == 7)){
-    #   clip.groups <- c('wo_outline','oak')
-    #   names(clip.groups) <- c('West and Downtown Oakland','Oakland')
-    # }
     
     for (m in 1:length(clip.groups)){    
       
@@ -290,9 +259,9 @@ for (i in 1:length(beta.groups)){
       
       if(i == 4 | i == 5 | i == 6){
         b <- raster(paste(rates,rate.groups[2],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[2],'.tif',sep=''))
+        c = raster(paste(pops,pop.groups[1],'.tif',sep=''))
         rate.names <- names(rate.groups[2])
-        pop.names <- names(pop.groups[2])
+        pop.names <- names(pop.groups[1])
         
       }
       
@@ -312,89 +281,37 @@ for (i in 1:length(beta.groups)){
         
       }
       
-      if(i == 13 | i == 14 | i == 15){
-        b <- raster(paste(rates,rate.groups[5],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[2],'.tif',sep=''))
-        rate.names <- names(rate.groups[5])
-        pop.names <- names(pop.groups[2])
-        
-      }
-      
-      if(i == 16 | i == 17 | i == 18 | i == 19 | i == 20 | i == 21){
-        b <- raster(paste(rates,rate.groups[6],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[3],'.tif',sep=''))
-        rate.names <- names(rate.groups[6])
-        pop.names <- names(pop.groups[3])
-        
-      }
-      
-      if(i == 22 | i == 23 | i == 24 | i == 25 | i == 26 | i == 27){
-        b <- raster(paste(rates,rate.groups[7],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[1],'.tif',sep=''))
-        rate.names <- names(rate.groups[7])
-        pop.names <- names(pop.groups[1])
-        
-      }
-      
-      if(i == 28 | i == 29 | i == 30){
-        b <- raster(paste(rates,rate.groups[8],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[4],'.tif',sep=''))
-        rate.names <- names(rate.groups[8])
-        pop.names <- names(pop.groups[4])
-        
-      }
-      
-      if(i == 31 | i == 32 | i == 33){
-        b <- raster(paste(rates,rate.groups[9],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[4],'.tif',sep=''))
-        rate.names <- names(rate.groups[9])
-        pop.names <- names(pop.groups[4])
-        
-      }
-      
-      
-      if(i == 34 | i == 35 | i == 36){
-        b <- raster(paste(rates,rate.groups[10],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[4],'.tif',sep=''))
-        rate.names <- names(rate.groups[10])
-        pop.names <- names(pop.groups[4])
-        
-      }
-      
-      if(i == 37 | i == 38 | i == 39){
-        b <- raster(paste(rates,rate.groups[11],'.tif',sep=''))
-        c = raster(paste(pops,pop.groups[4],'.tif',sep=''))
-        rate.names <- names(rate.groups[11])
-        pop.names <- names(pop.groups[4])
-        
-      }
+      shp <- readOGR(dsn=shps, layer=paste(clip.groups[m]))
+      crs(shp) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
       
       a = raster(paste(concs,conc.groups[j],'.tif',sep=''))
       a[a==0]<-NA
+      
+      a <- crop(a, shp)
+      a <- mask(a, shp)
       af <- 1-exp(-beta.groups[i]*a)
       
       af2 <- af
       af <- af*100
       
+      b[b==0] <- NA
+      b <- crop(b, shp)
+      b <- mask(b, shp)
+      
       mr <- af2*b
       mr[mr==0]<-NA
       
       c[c==0]<- NA
-      
+      c <- crop(c, shp)
+      c <- mask(c, shp)
       
       hia = overlay(c, b, a, fun=function(r1, r2, r3){return(r1*r2*(10^-4)*(1-exp(-beta.groups[i]*r3)))})
       hia[hia==0]<-NA
       
       
-      shp <- readOGR(dsn=shps, layer=paste(clip.groups[m]))
-      crs(shp) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
       
       shp.f <- fortify(shp) %>% 
-        mutate(id = as.numeric(id))
-      
-      af <- crop(af, shp)
-      af <- mask(af, shp)
-      
+        mutate(id = as.numeric(id))    
       
       af.iqr <- quantile(af)
       af.iqr <- as.matrix(af.iqr)
@@ -428,8 +345,7 @@ for (i in 1:length(beta.groups)){
                       mergeTiles = TRUE)
       base <- openproj(base, projection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
       
-      if((i == 1 | i == 4 | i == 7 | i == 10 | i == 13 | i == 16 |
-          i == 19 | i == 22 | i == 25 | i == 28 | i == 31 | i == 33 | i == 36 ) & (j == 1 | j == 2 | j == 3)){
+      if((i == 1 | i == 4 | i == 7 | i == 10) & (j == 1 | j == 2 | j == 4 | j == 7)){
         
         autoplot(base)  +
           geom_polygon(data = shp.f, aes(x = long, y = lat, group = group), 
@@ -466,8 +382,6 @@ for (i in 1:length(beta.groups)){
       }
       #==============================================================================================================================================================    
       
-      mr <- crop(mr, shp)
-      mr <- mask(mr, shp)
       
       f2 = paste('/GWSPH/home/vtinney/ho/results3/no2/mr/',names(clip.groups[m]),', ',outcome.groups[i],', ',names(conc.groups[j]),', ',names(beta.groups[i]),', ',rate.names,'.tif',sep='')
       
@@ -484,8 +398,7 @@ for (i in 1:length(beta.groups)){
       mr.df <- data.frame(mr.df)
       colnames(mr.df) <- c('lon','lat','val')
       
-      if((i == 1 | i == 4 | i == 7 | i == 10 | i == 13 | i == 16 |
-          i == 19 | i == 22 | i == 25 | i == 28 | i == 31 | i == 33 | i == 36 ) & (j == 1 | j == 2 | j == 3)){
+      if((i == 1 | i == 4 | i == 7 | i == 10) & (j == 1 | j == 2 | j == 4 | j == 7)){
         autoplot(base)  +
           geom_polygon(data = shp.f, aes(x = long, y = lat, group = group), 
                        fill="grey50",alpha=0.5)+
@@ -540,8 +453,7 @@ for (i in 1:length(beta.groups)){
       mean.hia <- (min.hia+max.hia)/2
       mean.hia.label <- round(mean.hia,2)
       
-      if((i == 1 | i == 4 | i == 7 | i == 10 | i == 13 | i == 16 |
-          i == 19 | i == 22 | i == 25 | i == 28 | i == 31 | i == 33 | i == 36 ) & (j == 1 | j == 2 | j == 3)){
+      if((i == 1 | i == 4 | i == 7 | i == 10) & (j == 1 | j == 2 | j == 4 | j == 7)){
         autoplot(base)  +
           geom_polygon(data = shp.f, aes(x = long, y = lat, group = group), 
                        fill="grey50",alpha=0.5)+
@@ -576,63 +488,67 @@ for (i in 1:length(beta.groups)){
         print('hia')
       }
       #=========================================================================================================================
-      cbg.shp <- readOGR(dsn=shps, layer=paste(cbg.groups))
-      crs(cbg.shp) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-      
-      cbg.shp <- crop(cbg.shp, shp)
-      
-      cbg.shp.f <- fortify(cbg.shp) %>% 
-        mutate(id = as.numeric(id))
-      
-      zone.in <- cbg.shp
-      raster.in <- hia
-      
-      shp2 <- ZonalPipe(zone.in, raster.in, stat="sum")
-      shp2@data <- shp2@data %>% mutate(id = row.names(.))
-      shp_df <- fortify(shp2, region = "id")
-      shp_df <- shp_df %>% left_join(shp2@data, by = c("id"="id"))
-      shp_df <- as.data.frame(shp_df)
-      shp_df[,ncol(shp_df)][shp_df[,ncol(shp_df)] == 0] <- NA
-      r.min <- min(shp_df[,ncol(shp_df)],na.rm=TRUE)
-      r.max <- max(shp_df[,ncol(shp_df)],na.rm=TRUE)
-      r.med <- median(shp_df[,ncol(shp_df)],na.rm=TRUE)
-      colnames(shp_df)[ncol(shp_df)] <- 'hia.val'
-      
-      r.mean <- (r.min+r.max)/2
-      r.mean.label <- round(r.mean,2)
-      r.min.label <- round(r.min,2)
-      r.max.label <- round(r.max,2)
-      r.med.label <- round(r.med,2)
-      
-      zone.in <- cbg.shp 
-      raster.in <- c
-      
-      shp3 <- ZonalPipe(zone.in, raster.in, stat="sum")
-      shp3@data <- shp3@data %>% mutate(id = row.names(.))
-      pop_df <- fortify(shp3, region = "id")
-      pop_df <- pop_df %>% left_join(shp3@data, by = c("id"="id"))
-      pop_df <- as.data.frame(pop_df)
-      pop_df[,ncol(pop_df)][pop_df[,ncol(pop_df)] == 0] <- NA
-      colnames(pop_df)[ncol(pop_df)] <- "pop.val"
-      
-      rate_df <- merge(shp_df,pop_df,by='order')
-      rate_df <- as.data.frame(rate_df)
-      rate_df$rate <- NA
-      rate_df$rate <- (rate_df$hia.val*100000)/rate_df$pop.val
-      #rate_df$rate[rate_df$rate==0]<-NA
-      rate.min <- min(rate_df[,ncol(rate_df)],na.rm=TRUE)
-      rate.max <- max(rate_df[,ncol(rate_df)],na.rm=TRUE)
-      rate.med <- median(rate_df[,ncol(rate_df)],na.rm=TRUE)
-      rate.min.label <- round(rate.min,2)
-      rate.max.label <- round(rate.max,2)
-      rate.med.label <- round(rate.med,2)
-      rate.mean <- (rate.min+rate.max)/2
-      rate.mean.label <- round(rate.mean,2)
-      
-      write.csv(rate_df, paste(names(clip.groups[m]),',',outcome.groups[i],',',names(beta.groups[i]),',',names(conc.groups[j]),',',pop.names,',',rate.names,'cbg.results.csv'))
-      
-      if((i == 1 | i == 4 | i == 7 | i == 10 | i == 13 | i == 16 |
-          i == 19 | i == 22 | i == 25 | i == 28 | i == 31 | i == 33 | i == 36 ) & (j == 1 | j == 2 | j == 3)){
+      if ((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 | i == 7 | i == 8 | i == 9 |
+           i == 10 | i == 11 | i == 12 ) & (j == 1 | j == 2)){
+        
+        
+        cbg.shp <- readOGR(dsn=shps, layer=paste(cbg.groups))
+        crs(cbg.shp) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+        
+        cbg.shp <- crop(cbg.shp, shp)
+        
+        cbg.shp.f <- fortify(cbg.shp) %>% 
+          mutate(id = as.numeric(id))
+        
+        zone.in <- cbg.shp
+        raster.in <- hia
+        
+        shp2 <- ZonalPipe(zone.in, raster.in, stat="sum")
+        shp2@data <- shp2@data %>% mutate(id = row.names(.))
+        shp_df <- fortify(shp2, region = "id")
+        shp_df <- shp_df %>% left_join(shp2@data, by = c("id"="id"))
+        shp_df <- as.data.frame(shp_df)
+        shp_df[,ncol(shp_df)][shp_df[,ncol(shp_df)] == 0] <- NA
+        r.min <- min(shp_df[,ncol(shp_df)],na.rm=TRUE)
+        r.max <- max(shp_df[,ncol(shp_df)],na.rm=TRUE)
+        r.med <- median(shp_df[,ncol(shp_df)],na.rm=TRUE)
+        colnames(shp_df)[ncol(shp_df)] <- 'hia.val'
+        
+        r.mean <- (r.min+r.max)/2
+        r.mean.label <- round(r.mean,2)
+        r.min.label <- round(r.min,2)
+        r.max.label <- round(r.max,2)
+        r.med.label <- round(r.med,2)
+        
+        zone.in <- cbg.shp 
+        raster.in <- c
+        
+        shp3 <- ZonalPipe(zone.in, raster.in, stat="sum")
+        shp3@data <- shp3@data %>% mutate(id = row.names(.))
+        pop_df <- fortify(shp3, region = "id")
+        pop_df <- pop_df %>% left_join(shp3@data, by = c("id"="id"))
+        pop_df <- as.data.frame(pop_df)
+        pop_df[,ncol(pop_df)][pop_df[,ncol(pop_df)] == 0] <- NA
+        colnames(pop_df)[ncol(pop_df)] <- "pop.val"
+        
+        rate_df <- merge(shp_df,pop_df,by='order')
+        rate_df <- as.data.frame(rate_df)
+        rate_df$rate <- NA
+        rate_df$rate <- (rate_df$hia.val*100000)/rate_df$pop.val
+        #rate_df$rate[rate_df$rate==0]<-NA
+        rate.min <- min(rate_df[,ncol(rate_df)],na.rm=TRUE)
+        rate.max <- max(rate_df[,ncol(rate_df)],na.rm=TRUE)
+        rate.med <- median(rate_df[,ncol(rate_df)],na.rm=TRUE)
+        rate.min.label <- round(rate.min,2)
+        rate.max.label <- round(rate.max,2)
+        rate.med.label <- round(rate.med,2)
+        rate.mean <- (rate.min+rate.max)/2
+        rate.mean.label <- round(rate.mean,2)
+        
+        write.csv(rate_df, paste(names(clip.groups[m]),',',outcome.groups[i],',',names(beta.groups[i]),',',names(conc.groups[j]),',',pop.names,',',rate.names,'cbg.results.csv'))
+      }
+      if((i == 1 | i == 4 | i == 7 | i == 10) & (j == 1 | j == 2)){
+        
         # Map of excess per grid cell
         e <- autoplot(base)  +
           geom_polygon(data = shp_df, aes(x = long, y = lat, group = group, fill = shp_df[,ncol(shp_df)]),alpha=0.7)+
@@ -696,77 +612,14 @@ for (i in 1:length(beta.groups)){
         ggsave(paste0(names(clip.groups[m]),' PAF ',outcome.groups[i],' ',names(beta.groups[i]),' ',names(conc.groups[j]),' ',pop.names,' ',rate.names,'.rate.cbg.png',sep=''),dpi=320)
         print('rate.cbg')
       }
-      #/////////////////////////////////////////////////////////////////////////////////////////////
-      # City aggregation
-      if(m == 1 | m == 2 | m == 3){} 
-      else{
-        city.groups <- c('houston_cities')
-        city.shp <- readOGR(dsn=shps, layer=paste(city.groups))
-        crs(city.shp) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
-        
-        city.shp <- crop(city.shp, shp)
-        
-        city.shp.f <- fortify(city.shp) %>% 
-          mutate(id = as.numeric(id))
-        
-        zone.in <- city.shp
-        raster.in <- hia
-        
-        shp2 <- ZonalPipe(zone.in, raster.in, stat="sum")
-        shp2@data <- shp2@data %>% mutate(id = row.names(.))
-        shp_df <- fortify(shp2, region = "id")
-        shp_df <- shp_df %>% left_join(shp2@data, by = c("id"="id"))
-        shp_df <- as.data.frame(shp_df)
-        shp_df[,ncol(shp_df)][shp_df[,ncol(shp_df)] == 0] <- NA
-        r.min <- min(shp_df[,ncol(shp_df)],na.rm=TRUE)
-        r.max <- max(shp_df[,ncol(shp_df)],na.rm=TRUE)
-        r.med <- median(shp_df[,ncol(shp_df)],na.rm=TRUE)
-        colnames(shp_df)[ncol(shp_df)] <- 'hia.val'
-        
-        r.mean <- (r.min+r.max)/2
-        r.mean.label <- round(r.mean,2)
-        r.min.label <- round(r.min,2)
-        r.max.label <- round(r.max,2)
-        r.med.label <- round(r.med,2)
-        
-        zone.in <- city.shp #======CHANGE=====#
-        raster.in <- c
-        
-        shp3 <- ZonalPipe(zone.in, raster.in, stat="sum")
-        shp3@data <- shp3@data %>% mutate(id = row.names(.))
-        pop_df <- fortify(shp3, region = "id")
-        pop_df <- pop_df %>% left_join(shp3@data, by = c("id"="id"))
-        pop_df <- as.data.frame(pop_df)
-        pop_df[,ncol(pop_df)][pop_df[,ncol(pop_df)] == 0] <- NA
-        colnames(pop_df)[ncol(pop_df)] <- "pop.val"
-        
-        rate_df <- merge(shp_df,pop_df,by='order')
-        rate_df <- as.data.frame(rate_df)
-        rate_df$rate <- NA
-        rate_df$rate <- (rate_df$hia.val*100000)/rate_df$pop.val
-        #rate_df$rate[rate_df$rate==0]<-NA
-        rate.min <- min(rate_df[,ncol(rate_df)],na.rm=TRUE)
-        rate.max <- max(rate_df[,ncol(rate_df)],na.rm=TRUE)
-        rate.med <- median(rate_df[,ncol(rate_df)],na.rm=TRUE)
-        rate.min.label <- round(rate.min,2)
-        rate.max.label <- round(rate.max,2)
-        rate.med.label <- round(rate.med,2)
-        rate.mean <- (rate.min+rate.max)/2
-        rate.mean.label <- round(rate.mean,2)
-        
-        write.csv(rate_df, paste(names(clip.groups[m]),',',outcome.groups[i],',',names(beta.groups[i]),',',names(conc.groups[j]),',',pop.names,',',rate.names,'city.results.csv'))
-        rm(city.shp)
-      }
-      
       
       
       #///////////////////////////////////////////////////////////////////////////
       # County aggregation
       
-      if((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 |
-          i == 10 | i == 11 | i == 12 | i == 13 | i == 14 | i == 15 | i == 16 | i == 17 | 
-          i == 18 | i == 19 | i == 20 | i == 21 | i == 22 | i == 23 | i == 24 | i == 25 | i == 26 | i == 27 |
-          i == 28 | i == 29 | i == 30 | i == 34 | i == 35 | i == 36) & (m != 1 | m != 2 )){
+      if ((i == 1 | i == 2 | i == 3 | i == 4 | i == 5 | i == 6 |
+           i == 10 | i == 11 | i == 12 ) & (j == 1 | j == 2)){
+        
         co.groups <- c('houston_co_1984')
         
         co.shp <- readOGR(dsn=shps, layer=paste(co.groups))

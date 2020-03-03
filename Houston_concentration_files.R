@@ -14,6 +14,7 @@ pm <- raster("conc.mean.15.16.di.warp.houston.tif")
 
 pm.14.16 <- raster('conc.pm.mean.14.16.tif')
 pm.13.16 <- raster('conc.pm.mean.13.16.tif')
+pm.13.15 <- raster('conc.pm.mean.13.15.tif')
 
 bc[bc == 0] <- NA
 min.bc <- minValue(bc)
@@ -72,6 +73,22 @@ pm3.3[pm3.3 >= med.pm.13.16] <- med.pm.13.16
 
 writeRaster(pm2.3, filename='conc.min.pm.ho.13.16.tif', format="GTiff", overwrite=TRUE)
 writeRaster(pm3.3, filename='conc.med.pm.ho.13.16tif', format="GTiff", overwrite=TRUE)
+
+
+
+pm.13.15[pm.13.15 == 0] <- NA
+min.pm.13.15 <- minValue(pm.13.15)
+max.pm.13.15 <- maxValue(pm.13.15)
+med.pm.13.15 <- quantile(pm.13.15, probs=0.5)
+
+pm2.3 <- pm.13.15
+pm3.3 <- pm.13.15
+
+pm2.3[pm2.3 >= min.pm.13.15] <- min.pm.13.15
+pm3.3[pm3.3 >= med.pm.13.15] <- med.pm.13.15
+
+writeRaster(pm2.3, filename='conc.min.pm.ho.13.15.tif', format="GTiff", overwrite=TRUE)
+writeRaster(pm3.3, filename='conc.med.pm.ho.13.15.tif', format="GTiff", overwrite=TRUE)
 
 
 

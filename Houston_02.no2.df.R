@@ -46,7 +46,7 @@ filenames <- list.files(path='/GWSPH/home/vtinney/ho/results3/no2/df/',pattern="
 
 
 #===================================================================================================
-# CBG, City and County summary statistics
+# CBG and County summary statistics
 #===================================================================================================
 
 
@@ -81,30 +81,6 @@ filenames <- list.files(path='/GWSPH/home/vtinney/ho/results3/no2/df/cbg/',patte
 	dataset <- do.call("rbind",lapply(filenames,FUN=function(files){read.csv(files, header=TRUE, sep=",")}))
 	write.csv(dataset, "no2.cbg.results.csv")
 
-# City 
-for (i in 1:length(dir)){
-	print(dir[i])
-	setwd(dir[i])
-	files <- list.files(pattern = "\\city.results.csv*", full.names=TRUE)
-	for (k in 1:length(files)){
-		print(files[k])
-		p <- read.csv(paste(files[k]))
-		p <- as.data.frame(p)
-		p <- distinct(p,NAMELSAD.x, .keep_all= TRUE)
-		p$filenames <- p$NAMELSAD.x
-		p$filenames <- paste0(files[k],names(dir[i]))
-  	fout = paste0('/GWSPH/home/vtinney/ho/results3/no2/df/city/',files[k],'.csv',sep='')
-	write.csv(p, fout)
-rm(p)
-}}
-
-
-setwd('/GWSPH/home/vtinney/ho/results3/no2/df/city/')
-filenames <- list.files(path='/GWSPH/home/vtinney/ho/results3/no2/df/city/',pattern="*.csv", full.names=TRUE)
-	dataset <- do.call("rbind",lapply(filenames,FUN=function(files){read.csv(files, header=TRUE, sep=",")}))
-	write.csv(dataset, "no2.city.results.csv")
-
-
 # County
 
 for (i in 1:length(dir)){
@@ -115,7 +91,7 @@ for (i in 1:length(dir)){
 		print(files[k])
 		p <- read.csv(paste(files[k]))
 		p <- as.data.frame(p)
-		p <- distinct(p,NAMELSAD.x, .keep_all= TRUE)
+		p <- distinct(p,NAME.x, .keep_all= TRUE)
 		p$filenames <- p$NAMELSAD.x
 		p$filenames <- paste0(files[k],names(dir[i]))
   	fout = paste0('/GWSPH/home/vtinney/ho/results3/no2/df/county/',files[k],names(dir[i]),'.csv',sep='')

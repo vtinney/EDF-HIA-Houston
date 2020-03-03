@@ -8,12 +8,18 @@ gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -srcnodata 
 
 cd C:\Users\vtinney\Google Drive\EDF_Texas\conc1
 
-gdalwarp -t_srs "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" -te -96.622500 28.825000 -94.353333 30.630833 -ts 2167 2723 -dstnodata -9999 -overwrite lark_clip_houston.tif conc.lark.ho.tif
+gdalwarp -t_srs "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0" -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite lark_clip_houston.tif conc.lark.ho.tif
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite mean.15.16.ho.di.tif conc.mean.15.16.ho.tif
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite vanDonkelaar_bc_2016.tif conc.bc.ho.tif
 
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite di.pm.mean.13.16.tif conc.pm.mean.13.16.tif
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite di.pm.mean.14.16.tif conc.pm.mean.14.16.tif
+
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite di.pm.mean.13.15.tif conc.pm.mean.13.15.tif
+
+gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite vd.pm.2016.tif conc.vd.pm.2016.tif
+
+
 
 gdalwarp -te -96.622500 28.825000 -94.353333 30.630833 -ts 2723 2167 -dstnodata -9999 -overwrite vd.pm.2016.tif conc.vd.pm.2016.tif
 
