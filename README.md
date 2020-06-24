@@ -21,6 +21,12 @@ The framework for the code is as follows:
  
  * **Intermediary Files** (IF)
     * IF files are provided for informational use only. Contact Veronica Southerland (vtinney@gwu.edu) for questions on generating intermediary files.
-
+    
+    * Houston_concentration_files.R - creates median and minimum concentration files using the concentration files provided in the inputs folder.
+    * Houston_concentration_maps.R - maps the concentration raster files.
+    * Houston_population_total.R - aggregates Houston population from input rasters.
+    * calculate_gsv_drive_cb_overlap.R - calculates spatial overlap between census blocks and GSV drive areas.
+    * houston_gdalwarp.txt - warps all files using GDAL to match input files.
+    * mean_di_pm_rasters.R - creates a mean concentration file from Di et al. 2019 concentration files for years 2013 through 2015.
 
 
